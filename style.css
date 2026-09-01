@@ -1,30 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Mono:wght@400;700&family=Work+Sans:wght@400;500;600&display=swap');
 
 :root {
-  --cream: #F4F1E8;
-  --dark: #1E3027;
-  --green: #315C4B;
-  --sage: #8FA68E;
-  --brown: #A66A4C;
-  --light-green: #DCE5D8;}
+  --cream: #f4f1e8;
+  --dark: #1e3027;
+  --green: #315c4b;
+  --sage: #8fa68e;
+  --brown: #a66a4c;
+  --light-green: #dce5d8;
+}
 
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;}
+  box-sizing: border-box;
+}
 
 body {
   background-color: var(--cream);
   color: var(--dark);
   font-family: 'Work Sans', sans-serif;
-  line-height: 1.6;}
+  line-height: 1.6;
+}
+
+/* Header */
 
 .site-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 28px 7%;
-  border-bottom: 1px solid var(--dark);}
+  border-bottom: 1px solid var(--dark);
+}
 
 .wordmark {
   font-family: 'Fraunces', serif;
@@ -35,16 +41,21 @@ body {
 .nav-links {
   display: flex;
   gap: 32px;
-  list-style: none;}
+  list-style: none;
+}
 
 .nav-links a {
   color: var(--dark);
   text-decoration: none;
   font-family: 'Space Mono', monospace;
-  font-size: 0.85rem;}
+  font-size: 0.85rem;
+}
 
 .nav-links a:hover {
-  color: var(--brown);}
+  color: var(--brown);
+}
+
+/* Hero */
 
 .hero {
   min-height: 75vh;
@@ -62,12 +73,16 @@ body {
   font-family: 'Fraunces', serif;
   font-size: clamp(3rem, 7vw, 6rem);
   line-height: 1;
-  margin-bottom: 28px;}
+  margin-bottom: 28px;
+}
 
 .hero p {
   max-width: 620px;
   font-size: 1.1rem;
-  margin-bottom: 36px;}
+  margin-bottom: 36px;
+}
+
+/* Button */
 
 .cta-button {
   display: inline-block;
@@ -85,40 +100,10 @@ body {
   color: var(--green);
 }
 
+/* Footer */
+
 footer {
   padding: 24px 7%;
   border-top: 1px solid var(--dark);
   font-size: 0.85rem;
-}
-
-/* Mobile */
-@media (max-width: 600px) {
-  .site-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-  }
-
-  .nav-links {
-    gap: 18px;
-    flex-wrap: wrap;
-  }
-  
-  .nav-links a:hover {
-  color: var(--brown);
-}
-
-  .hero {
-    min-height: 70vh;
-    padding-top: 60px;
-    padding-bottom: 60px;
-  }
-
-  .hero h1 {
-    font-size: 3.2rem;
-  }
-
-  .hero p {
-    font-size: 1rem;
-  }
 }
