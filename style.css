@@ -107,3 +107,55 @@ footer {
   border-top: 1px solid var(--dark);
   font-size: 0.85rem;
 }
+
+/* Mobile Responsiveness */
+
+@media (max-width: 600px) {
+
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px 6%;
+  }
+
+  .wordmark {
+    font-size: 1.8rem;
+  }
+
+  .nav-links {
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    font-size: 0.75rem;
+  }
+
+  .hero {
+    min-height: 70vh;
+    padding: 60px 6%;
+  }
+
+  .hero h1 {
+    font-size: 3.2rem;
+    line-height: 1.05;
+    margin-bottom: 24px;
+  }
+
+  .hero p {
+    font-size: 1rem;
+    margin-bottom: 30px;
+  }
+
+  .cta-button {
+    padding: 13px 20px;
+    font-size: 0.75rem;
+  }
+
+  footer {
+    padding: 20px 6%;
+    font-size: 0.75rem;
+  }
+
+}
