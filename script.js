@@ -24,9 +24,15 @@ tripForm.addEventListener('submit', function (event) {
     notes: notes
   };
 
-  console.log('Trip created:', trip);
+const savedTrips = JSON.parse(localStorage.getItem('trips')) || [];
 
-  formMessage.textContent = 'Your trip was added successfully.';
+savedTrips.push(trip);
 
-  tripForm.reset();
+localStorage.setItem('trips', JSON.stringify(savedTrips));
+
+console.log('Trip created:', trip);
+
+formMessage.textContent = 'Your trip was added successfully.';
+
+tripForm.reset();
 });
