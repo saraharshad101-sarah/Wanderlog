@@ -82,6 +82,80 @@ body {
   margin-bottom: 36px;
 }
 
+/* Add Trip Form */
+
+.add-trip {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 72px 7% 96px;
+  background-color: var(--light-green);
+}
+
+.add-trip h2 {
+  margin-bottom: 32px;
+  font-family: 'Fraunces', serif;
+  font-size: 2.5rem;
+  line-height: 1.1;
+}
+
+#trip-form {
+  max-width: 620px;
+}
+
+.form-field {
+  margin-bottom: 22px;
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 8px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--dark);
+  border-radius: 0;
+  background-color: var(--cream);
+  color: var(--dark);
+  font: inherit;
+}
+
+.form-field textarea {
+  resize: vertical;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: 2px solid var(--brown);
+  outline-offset: 2px;
+}
+
+.form-message {
+  min-height: 26px;
+  margin-bottom: 8px;
+  color: var(--brown);
+  font-size: 0.9rem;
+}
+
+.submit-button {
+  padding: 14px 24px;
+  border: 2px solid var(--green);
+  background-color: var(--green);
+  color: white;
+  cursor: pointer;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.85rem;
+}
+
+.submit-button:hover {
+  background-color: transparent;
+  color: var(--green);
+}
+
 /* Button */
 
 .cta-button {
@@ -146,6 +220,14 @@ footer {
   .hero p {
     font-size: 1rem;
     margin-bottom: 30px;
+  }
+
+  .add-trip {
+    padding: 56px 6% 72px;
+  }
+
+  .add-trip h2 {
+    font-size: 2.2rem;
   }
 
   .cta-button {

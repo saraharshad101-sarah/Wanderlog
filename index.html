@@ -44,6 +44,38 @@
 
     </section>
 
+    <!-- Add Trip Form -->
+    <section class="add-trip" id="add-trip" aria-labelledby="add-trip-heading">
+
+      <h2 id="add-trip-heading">Add a Trip</h2>
+
+      <form id="trip-form" novalidate>
+        <div class="form-field">
+          <label for="trip-title">Trip title</label>
+          <input type="text" id="trip-title" name="title" required>
+        </div>
+
+        <div class="form-field">
+          <label for="trip-destination">Destination</label>
+          <input type="text" id="trip-destination" name="destination" required>
+        </div>
+
+        <div class="form-field">
+          <label for="trip-date">Date</label>
+          <input type="date" id="trip-date" name="date" required>
+        </div>
+
+        <div class="form-field">
+          <label for="trip-notes">Notes</label>
+          <textarea id="trip-notes" name="notes" rows="5" required></textarea>
+        </div>
+
+        <p class="form-message" id="form-message" role="alert"></p>
+        <button type="submit" class="submit-button">Save trip</button>
+      </form>
+
+    </section>
+
   </main>
 
 
@@ -51,6 +83,8 @@
   <footer>
     <p>&copy; 2026 Wanderlog. All rights reserved.</p>
   </footer>
+
+  <script src="script.js"></script>
 
 </body>
 </html>
