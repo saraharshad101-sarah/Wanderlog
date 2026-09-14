@@ -1,6 +1,9 @@
 const tripForm = document.querySelector('#trip-form');
 const formMessage = document.querySelector('#form-message');
 const tripGrid = document.querySelector('#trip-grid');
+const tripHeading = document.querySelector('#add-trip-heading');
+const submitButton = document.querySelector('.submit-button');
+let editingTripId = null;
 
 tripForm.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -18,25 +21,42 @@ tripForm.addEventListener('submit', function (event) {
   }
 
   const trip = {
-    id: Date.now(),
+    id: editingTripId || Date.now(),
     title: title,
     destination: destination,
     date: date,
     notes: notes
   };
 
-const savedTrips = JSON.parse(localStorage.getItem('trips')) || [];
+  const savedTrips = JSON.parse(localStorage.getItem('trips')) || [];
 
-savedTrips.push(trip);
+  if (editingTripId) {
+    const tripIndex = savedTrips.findIndex(function (savedTrip) {
+      return savedTrip.id === editingTripId;
+    });
 
-localStorage.setItem('trips', JSON.stringify(savedTrips));
+    if (tripIndex !== -1) {
+      savedTrips[tripIndex] = trip;
+    }
+  } else {
+    savedTrips.push(trip);
+  }
 
-console.log('Trip created:', trip);
+  localStorage.setItem('trips', JSON.stringify(savedTrips));
 
-formMessage.textContent = 'Your trip was added successfully.';
+  console.log(editingTripId ? 'Trip updated:' : 'Trip created:', trip);
 
-tripForm.reset();
+  formMessage.textContent = editingTripId
+    ? 'Your trip was updated successfully.'
+    : 'Your trip was added successfully.';
+
+  tripForm.reset();
+  editingTripId = null;
+  tripHeading.textContent = 'Add a Trip';
+  submitButton.textContent = 'Save trip';
+  displayTrips();
 });
+
 function displayTrips() {
   const savedTrips = JSON.parse(localStorage.getItem('trips')) || [];
 
@@ -52,7 +72,28 @@ function displayTrips() {
       <p><strong>Destination:</strong> ${trip.destination}</p>
       <p><strong>Date:</strong> ${trip.date}</p>
       <p>${trip.notes}</p>
+      <button type="button" class="submit-button edit-button" data-trip-id="${trip.id}">Edit</button>
     `;
+
+    tripCard.querySelector('.edit-button').addEventListener('click', function () {
+      const tripToEdit = savedTrips.find(function (savedTrip) {
+        return String(savedTrip.id) === this.dataset.tripId;
+      }, this);
+
+      if (!tripToEdit) {
+        return;
+      }
+
+      editingTripId = tripToEdit.id;
+      document.querySelector('#trip-title').value = tripToEdit.title;
+      document.querySelector('#trip-destination').value = tripToEdit.destination;
+      document.querySelector('#trip-date').value = tripToEdit.date;
+      document.querySelector('#trip-notes').value = tripToEdit.notes;
+      tripHeading.textContent = 'Edit Trip';
+      submitButton.textContent = 'Update trip';
+      formMessage.textContent = '';
+      document.querySelector('#add-trip').scrollIntoView({ behavior: 'smooth' });
+    });
 
     tripGrid.appendChild(tripCard);
   });
