@@ -1,5 +1,6 @@
 const tripForm = document.querySelector('#trip-form');
 const formMessage = document.querySelector('#form-message');
+const tripGrid = document.querySelector('#trip-grid');
 
 tripForm.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -36,3 +37,25 @@ formMessage.textContent = 'Your trip was added successfully.';
 
 tripForm.reset();
 });
+function displayTrips() {
+  const savedTrips = JSON.parse(localStorage.getItem('trips')) || [];
+
+  tripGrid.innerHTML = '';
+
+  savedTrips.forEach(function (trip) {
+    const tripCard = document.createElement('article');
+
+    tripCard.classList.add('trip-card');
+
+    tripCard.innerHTML = `
+      <h3>${trip.title}</h3>
+      <p><strong>Destination:</strong> ${trip.destination}</p>
+      <p><strong>Date:</strong> ${trip.date}</p>
+      <p>${trip.notes}</p>
+    `;
+
+    tripGrid.appendChild(tripCard);
+  });
+}
+
+displayTrips();
