@@ -62,6 +62,11 @@ function displayTrips() {
 
   tripGrid.innerHTML = '';
 
+  if (savedTrips.length === 0) {
+    tripGrid.innerHTML = '<p class="empty-state">No journeys yet. Start by adding your first trip.</p>';
+    return;
+  }
+
   savedTrips.forEach(function (trip) {
     const tripCard = document.createElement('article');
 
