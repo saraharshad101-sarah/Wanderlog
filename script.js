@@ -73,6 +73,7 @@ function displayTrips() {
       <p><strong>Date:</strong> ${trip.date}</p>
       <p>${trip.notes}</p>
       <button type="button" class="submit-button edit-button" data-trip-id="${trip.id}">Edit</button>
+      <button type="button" class="submit-button edit-button delete-button" data-trip-id="${trip.id}">Delete</button>
     `;
 
     tripCard.querySelector('.edit-button').addEventListener('click', function () {
@@ -93,6 +94,23 @@ function displayTrips() {
       submitButton.textContent = 'Update trip';
       formMessage.textContent = '';
       document.querySelector('#add-trip').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    tripCard.querySelector('.delete-button').addEventListener('click', function () {
+      const tripToDelete = savedTrips.find(function (savedTrip) {
+        return String(savedTrip.id) === this.dataset.tripId;
+      }, this);
+
+      if (!tripToDelete || !window.confirm('Are you sure you want to delete this trip?')) {
+        return;
+      }
+
+      const remainingTrips = savedTrips.filter(function (savedTrip) {
+        return String(savedTrip.id) !== this.dataset.tripId;
+      }, this);
+
+      localStorage.setItem('trips', JSON.stringify(remainingTrips));
+      displayTrips();
     });
 
     tripGrid.appendChild(tripCard);
