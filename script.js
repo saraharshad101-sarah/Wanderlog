@@ -109,6 +109,14 @@ function displayTrips() {
       <button type="button" class="submit-button edit-button delete-button" data-trip-id="${trip.id}">Delete</button>
     `;
 
+    if (trip.image) {
+      const tripImage = document.createElement('img');
+      tripImage.classList.add('trip-card-image');
+      tripImage.src = trip.image;
+      tripImage.alt = `Photo from ${trip.title}`;
+      tripCard.insertBefore(tripImage, tripCard.firstElementChild);
+    }
+
     tripCard.querySelector('.edit-button').addEventListener('click', function () {
       const tripToEdit = savedTrips.find(function (savedTrip) {
         return String(savedTrip.id) === this.dataset.tripId;
