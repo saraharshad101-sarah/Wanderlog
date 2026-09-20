@@ -49,6 +49,19 @@
       gap: 24px;
     }
 
+    .profile-not-found {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 120px 7%;
+      background-color: var(--light-green);
+    }
+
+    .profile-not-found h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(3rem, 7vw, 5rem);
+      line-height: 1.1;
+    }
+
     @media (max-width: 600px) {
       .profile-section {
         padding: 56px 6% 64px;
@@ -72,6 +85,10 @@
 
       .profile-trip-grid {
         grid-template-columns: 1fr;
+      }
+
+      .profile-not-found {
+        padding: 96px 6%;
       }
     }
   </style>
@@ -125,9 +142,27 @@
 
   </main>
 
+  <section class="profile-not-found" id="profile-not-found" aria-labelledby="profile-not-found-heading" hidden>
+    <h1 id="profile-not-found-heading">Profile not found</h1>
+  </section>
+
   <footer>
     <p>&copy; 2026 Wanderlog. All rights reserved.</p>
   </footer>
+
+  <script>
+    const requestedUser = new URLSearchParams(window.location.search).get('user');
+    const profileUser = requestedUser && requestedUser.trim()
+      ? requestedUser.trim().toLowerCase()
+      : 'sarah';
+    const profileContent = document.querySelector('.profile-main');
+    const profileNotFound = document.querySelector('#profile-not-found');
+
+    if (profileUser !== 'sarah') {
+      profileContent.hidden = true;
+      profileNotFound.hidden = false;
+    }
+  </script>
 
 </body>
 </html>
