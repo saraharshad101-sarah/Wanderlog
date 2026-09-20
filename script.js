@@ -3,7 +3,28 @@ const formMessage = document.querySelector('#form-message');
 const tripGrid = document.querySelector('#trip-grid');
 const tripHeading = document.querySelector('#add-trip-heading');
 const submitButton = document.querySelector('.submit-button');
+const photoInput = document.querySelector('#trip-photo');
+const photoPreview = document.querySelector('#trip-photo-preview');
 let editingTripId = null;
+
+photoInput.addEventListener('change', function () {
+  const selectedFile = photoInput.files[0];
+
+  if (!selectedFile || !selectedFile.type.startsWith('image/')) {
+    photoPreview.removeAttribute('src');
+    photoPreview.hidden = true;
+    return;
+  }
+
+  const fileReader = new FileReader();
+
+  fileReader.addEventListener('load', function () {
+    photoPreview.src = fileReader.result;
+    photoPreview.hidden = false;
+  });
+
+  fileReader.readAsDataURL(selectedFile);
+});
 
 tripForm.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -51,6 +72,8 @@ tripForm.addEventListener('submit', function (event) {
     : 'Your trip was added successfully.';
 
   tripForm.reset();
+  photoPreview.removeAttribute('src');
+  photoPreview.hidden = true;
   editingTripId = null;
   tripHeading.textContent = 'Add a Trip';
   submitButton.textContent = 'Save trip';
@@ -95,6 +118,9 @@ function displayTrips() {
       document.querySelector('#trip-destination').value = tripToEdit.destination;
       document.querySelector('#trip-date').value = tripToEdit.date;
       document.querySelector('#trip-notes').value = tripToEdit.notes;
+      photoInput.value = '';
+      photoPreview.removeAttribute('src');
+      photoPreview.hidden = true;
       tripHeading.textContent = 'Edit Trip';
       submitButton.textContent = 'Update trip';
       formMessage.textContent = '';

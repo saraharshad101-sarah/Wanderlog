@@ -128,6 +128,15 @@ body {
   resize: vertical;
 }
 
+.photo-preview {
+  display: block;
+  width: min(100%, 360px);
+  max-height: 240px;
+  margin-top: 14px;
+  border: 1px solid var(--dark);
+  object-fit: cover;
+}
+
 .form-field input:focus,
 .form-field textarea:focus {
   outline: 2px solid var(--brown);

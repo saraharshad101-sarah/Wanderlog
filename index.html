@@ -78,6 +78,12 @@
           <textarea id="trip-notes" name="notes" rows="5" required></textarea>
         </div>
 
+        <div class="form-field">
+          <label for="trip-photo">Photo</label>
+          <input type="file" id="trip-photo" name="photo" accept="image/*">
+          <img id="trip-photo-preview" class="photo-preview" alt="Selected trip preview" hidden>
+        </div>
+
         <p class="form-message" id="form-message" role="alert"></p>
         <button type="submit" class="submit-button">Save trip</button>
       </form>
