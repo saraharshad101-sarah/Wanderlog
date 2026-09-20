@@ -49,6 +49,37 @@
       gap: 24px;
     }
 
+    .profile-loading,
+    .profile-empty-state,
+    .profile-image-fallback {
+      color: var(--green);
+      font-size: 1.05rem;
+    }
+
+    .profile-loading {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 7%;
+    }
+
+    .profile-empty-state {
+      grid-column: 1 / -1;
+      padding: 28px;
+      border: 1px dashed var(--sage);
+      background-color: var(--cream);
+    }
+
+    .profile-image-fallback {
+      display: flex;
+      min-height: 180px;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      border: 1px dashed var(--sage);
+      background-color: var(--light-green);
+      text-align: center;
+    }
+
     .profile-not-found {
       max-width: 900px;
       margin: 0 auto;
@@ -90,6 +121,10 @@
       .profile-not-found {
         padding: 96px 6%;
       }
+
+      .profile-loading {
+        padding: 28px 6%;
+      }
     }
   </style>
 </head>
@@ -109,6 +144,8 @@
     </nav>
 
   </header>
+
+  <p class="profile-loading" id="profile-loading" role="status">Loading profile...</p>
 
   <main class="profile-main">
 
@@ -138,6 +175,7 @@
           <p>A memorable mountain trip to the beautiful Saif-ul-Muluk Lake surrounded by snow-capped peaks.</p>
         </article>
       </div>
+      <p class="profile-empty-state" id="profile-empty-state" hidden>No journeys to display yet.</p>
     </section>
 
   </main>
@@ -157,10 +195,30 @@
       : 'sarah';
     const profileContent = document.querySelector('.profile-main');
     const profileNotFound = document.querySelector('#profile-not-found');
+    const profileLoading = document.querySelector('#profile-loading');
+    const profileTripGrid = document.querySelector('#profile-trip-grid');
+    const profileEmptyState = document.querySelector('#profile-empty-state');
+
+    profileLoading.hidden = true;
 
     if (profileUser !== 'sarah') {
       profileContent.hidden = true;
       profileNotFound.hidden = false;
+    } else {
+      profileEmptyState.hidden = profileTripGrid.querySelector('.trip-card') !== null;
+
+      profileTripGrid.querySelectorAll('.trip-card-image').forEach(function (tripImage) {
+        tripImage.addEventListener('error', function () {
+          tripImage.hidden = true;
+
+          const imageFallback = document.createElement('div');
+          imageFallback.className = 'profile-image-fallback';
+          imageFallback.textContent = 'Trip photo unavailable';
+          imageFallback.setAttribute('role', 'img');
+          imageFallback.setAttribute('aria-label', 'Trip photo unavailable');
+          tripImage.parentElement.insertBefore(imageFallback, tripImage);
+        }, { once: true });
+      });
     }
   </script>
 
