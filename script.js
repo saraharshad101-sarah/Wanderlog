@@ -6,11 +6,13 @@ const submitButton = document.querySelector('.submit-button');
 const photoInput = document.querySelector('#trip-photo');
 const photoPreview = document.querySelector('#trip-photo-preview');
 let editingTripId = null;
+let selectedImageData = null;
 
 photoInput.addEventListener('change', function () {
   const selectedFile = photoInput.files[0];
 
   if (!selectedFile || !selectedFile.type.startsWith('image/')) {
+    selectedImageData = null;
     photoPreview.removeAttribute('src');
     photoPreview.hidden = true;
     return;
@@ -19,6 +21,7 @@ photoInput.addEventListener('change', function () {
   const fileReader = new FileReader();
 
   fileReader.addEventListener('load', function () {
+    selectedImageData = fileReader.result;
     photoPreview.src = fileReader.result;
     photoPreview.hidden = false;
   });
@@ -46,7 +49,8 @@ tripForm.addEventListener('submit', function (event) {
     title: title,
     destination: destination,
     date: date,
-    notes: notes
+    notes: notes,
+    image: selectedImageData
   };
 
   const savedTrips = JSON.parse(localStorage.getItem('trips')) || [];
@@ -72,6 +76,7 @@ tripForm.addEventListener('submit', function (event) {
     : 'Your trip was added successfully.';
 
   tripForm.reset();
+  selectedImageData = null;
   photoPreview.removeAttribute('src');
   photoPreview.hidden = true;
   editingTripId = null;
@@ -118,9 +123,15 @@ function displayTrips() {
       document.querySelector('#trip-destination').value = tripToEdit.destination;
       document.querySelector('#trip-date').value = tripToEdit.date;
       document.querySelector('#trip-notes').value = tripToEdit.notes;
+      selectedImageData = tripToEdit.image || null;
       photoInput.value = '';
-      photoPreview.removeAttribute('src');
-      photoPreview.hidden = true;
+      if (selectedImageData) {
+        photoPreview.src = selectedImageData;
+        photoPreview.hidden = false;
+      } else {
+        photoPreview.removeAttribute('src');
+        photoPreview.hidden = true;
+      }
       tripHeading.textContent = 'Edit Trip';
       submitButton.textContent = 'Update trip';
       formMessage.textContent = '';
