@@ -38,12 +38,25 @@ tripForm.addEventListener('submit', function (event) {
   const destination = formData.get('destination').trim();
   const date = formData.get('date');
   const notes = formData.get('notes').trim();
+  const requiredFields = [
+    document.querySelector('#trip-title'),
+    document.querySelector('#trip-destination'),
+    document.querySelector('#trip-date'),
+    document.querySelector('#trip-notes')
+  ];
 
   if (!title || !destination || !date || !notes) {
+    requiredFields.forEach(function (field) {
+      field.setAttribute('aria-invalid', field.value.trim() ? 'false' : 'true');
+    });
     formMessage.classList.remove('is-success');
     formMessage.textContent = 'Please complete all fields before saving your trip.';
     return;
   }
+
+  requiredFields.forEach(function (field) {
+    field.removeAttribute('aria-invalid');
+  });
 
   const trip = {
     id: editingTripId || Date.now(),
@@ -144,6 +157,9 @@ function displayTrips() {
       }
       tripHeading.textContent = 'Edit Trip';
       submitButton.textContent = 'Update trip';
+      document.querySelectorAll('#trip-form [aria-invalid]').forEach(function (field) {
+        field.removeAttribute('aria-invalid');
+      });
       formMessage.classList.remove('is-success');
       formMessage.textContent = '';
       document.querySelector('#add-trip').scrollIntoView({ behavior: 'smooth' });
