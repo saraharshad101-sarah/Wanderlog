@@ -49,6 +49,7 @@ body {
   text-decoration: none;
   font-family: 'Space Mono', monospace;
   font-size: 0.85rem;
+  transition: color 180ms ease;
 }
 
 .nav-links a:hover {
@@ -125,6 +126,7 @@ body {
   color: var(--dark);
   font: inherit;
   line-height: 1.4;
+  transition: border-color 180ms ease, background-color 180ms ease;
 }
 
 .form-field textarea {
@@ -153,6 +155,13 @@ body {
   font-size: 0.9rem;
 }
 
+.form-message.is-success {
+  padding-left: 10px;
+  border-left: 2px solid var(--green);
+  color: var(--green);
+  font-weight: 500;
+}
+
 .submit-button {
   padding: 14px 24px;
   border: 2px solid var(--green);
@@ -161,11 +170,20 @@ body {
   cursor: pointer;
   font-family: 'Space Mono', monospace;
   font-size: 0.85rem;
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
 }
 
-.submit-button:hover {
+.submit-button:hover,
+.cta-button:hover {
   background-color: transparent;
   color: var(--green);
+  transform: translateY(-1px);
+}
+
+.submit-button:focus,
+.cta-button:focus {
+  outline: 2px solid var(--brown);
+  outline-offset: 3px;
 }
 
 .edit-button {
@@ -324,11 +342,7 @@ body {
   font-family: 'Space Mono', monospace;
   font-size: 0.85rem;
   border: 2px solid var(--green);
-}
-
-.cta-button:hover {
-  background-color: transparent;
-  color: var(--green);
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
 }
 
 /* Footer */

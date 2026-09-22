@@ -40,6 +40,7 @@ tripForm.addEventListener('submit', function (event) {
   const notes = formData.get('notes').trim();
 
   if (!title || !destination || !date || !notes) {
+    formMessage.classList.remove('is-success');
     formMessage.textContent = 'Please complete all fields before saving your trip.';
     return;
   }
@@ -71,6 +72,7 @@ tripForm.addEventListener('submit', function (event) {
 
   console.log(editingTripId ? 'Trip updated:' : 'Trip created:', trip);
 
+  formMessage.classList.add('is-success');
   formMessage.textContent = editingTripId
     ? 'Your trip was updated successfully.'
     : 'Your trip was added successfully.';
@@ -142,6 +144,7 @@ function displayTrips() {
       }
       tripHeading.textContent = 'Edit Trip';
       submitButton.textContent = 'Update trip';
+      formMessage.classList.remove('is-success');
       formMessage.textContent = '';
       document.querySelector('#add-trip').scrollIntoView({ behavior: 'smooth' });
     });
